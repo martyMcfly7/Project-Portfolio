@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Projects.Models.ProjectModel>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-5">Welcome</h1>
+    <div class="profile-img mb-5">
+        <img src="@Url.Action("GetImage", "Projects", new { fileName = "Portrait" })" class="img-thumbnail w-50 mb-4">
+        <h3>Victor E. Ortiz</h3>
+    </div>
+    <h2>Introduction</h2>
+    <p class="mb-5">
+        I am a current computer science student.<br />
+        I am interested in software development.<br />
+        I hope to use this project to demonstrate the projects that show my skills in programming and my understanding of advanced programming concepts.
+    </p>
+    <h2>Skills</h2>
+    <ul class="mb-5">
+        <li>C#</li>
+        <li>Java</li>
+        <li>Object-Oriented Programming</li>
+    </ul>
+    <h2>Projects</h2>
+    <ul class="mb-5">
+        @foreach (var project in Model)
+        {
+            <li>@Html.ActionLink(project.ProjectTitle, "Project", "Projects", new { projectNum = project.Id })</li>
+        }
+    </ul>
+</div>

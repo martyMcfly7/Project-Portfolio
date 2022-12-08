@@ -1,0 +1,19 @@
+﻿@model Projects.Models.ProjectModel
+@{
+    ViewData["Title"] = @Model.ProjectTitle;
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-5">Project #@Model.Id: @Model.ProjectTitle</h1>
+    <div class="profile-img mb-4">
+        <img src="@Url.Action("GetImage", "Projects", new { fileName = @Model.ImageName })" class="img-thumbnail w-75">
+    </div>
+    <p>About: @Model.About</p>
+    <p>Language: @Model.Language</p>
+    <p>Description: @Model.Description</p>
+    <p>Date Created: @Model.CreatedDate?.ToShortDateString()</p>
+    <p class="mb-5">Public: @Model.PublicProject</p>
+    <div class="mb-5">
+        @await Html.PartialAsync("_PartialProjectView")
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Projects.Models.ProjectModel>
+@{
+    ViewData["Title"] = "Remove";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 mb-5">Remove</h1>
+    <h2 class="mb-3">Project to remove:</h2>
+    @foreach (var project in Model)
+    {
+        <div class="mb-2">
+            @Html.ActionLink(project.ProjectTitle, "RemoveProject", new { projectNum = project.Id })
+        </div>
+    }
+</div>

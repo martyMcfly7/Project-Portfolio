@@ -1,0 +1,75 @@
+﻿@model Projects.Models.ProjectModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-5">Edit</h1>
+    <h2 class="mb-3">Project to edit:</h2>
+    @using (Html.BeginForm())
+    {
+        <div class="row mb-3">
+            <div class="col text-right">
+                @Html.LabelFor(m => m.ProjectTitle)
+            </div>
+            <div class="col text-left">
+                @Html.EditorFor(m => m.ProjectTitle)
+                @Html.ValidationMessageFor(m => m.ProjectTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col text-right">
+                @Html.LabelFor(m => m.PublicProject)
+            </div>
+            <div class="col text-left">
+                @Html.EditorFor(m => m.PublicProject)
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col text-right">
+                @Html.LabelFor(m => m.Language)
+            </div>
+            <div class="col text-left">
+                @Html.EditorFor(m => m.Language)
+                @Html.ValidationMessageFor(m => m.Language, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col text-right">
+                @Html.LabelFor(m => m.About)
+            </div>
+            <div class="col text-left">
+                @Html.EditorFor(m => m.About)
+                @Html.ValidationMessageFor(m => m.About, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col text-right">
+                @Html.LabelFor(m => m.Description)
+            </div>
+            <div class="col text-left">
+                @Html.EditorFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col text-right">
+                @Html.LabelFor(m => m.CreatedDate)
+            </div>
+            <div class="col text-left">
+                @Html.EditorFor(m => m.CreatedDate)
+                @Html.ValidationMessageFor(m => m.CreatedDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col text-right">
+                @Html.LabelFor(m => m.ImageName)
+            </div>
+            <div class="col text-left">
+                @Html.EditorFor(m => m.ImageName)
+                @Html.ValidationMessageFor(m => m.ImageName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input class="btn-primary" type="submit" value="Submit" />
+    }
+</div>
