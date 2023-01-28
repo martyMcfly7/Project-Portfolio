@@ -7,12 +7,12 @@
     <h1 class="display-4  mb-5">Projects</h1>
     @foreach (var project in @Model)
     {
-        <h3 class="mb-4"><a asp-action="Project" asp-route-projectNum=@project.Id>@project.ProjectTitle</a></h3>
+        <h3 class="mb-3">@Html.ActionLink(project.ProjectTitle, "Project", "Projects", new { projectNum = project.Id })</h3>
         <div class="profile-img mb-4">
             <img src="@Url.Action("GetImage", "Projects", new { fileName = project.ImageName })" class="img-thumbnail w-75">
         </div>
         <p>@project.About</p>
         <p>Language: @project.Language</p>
-        <p class="mb-5">Date Created: @project.CreatedDate?.ToShortDateString()</p>
+        <p class="mb-5">Date Created: @string.Format("{0:d}", project.CreatedDate)</p>
     }
 </div>

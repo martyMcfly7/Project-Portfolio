@@ -11,7 +11,7 @@
     <p>About: @Model.About</p>
     <p>Language: @Model.Language</p>
     <p>Description: @Model.Description</p>
-    <p>Date Created: @Model.CreatedDate?.ToShortDateString()</p>
+    <p>Date Created: @string.Format("{0:d}", Model.CreatedDate)</p>
     <p class="mb-5">Public: @Model.PublicProject</p>
     <div class="mb-5">
         @await Html.PartialAsync("_PartialProjectView")
