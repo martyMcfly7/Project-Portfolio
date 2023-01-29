@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Projects.Models;
 using Project.Repositories;
+using Microsoft.CodeAnalysis;
 
 namespace Projects.Controllers
 {
@@ -27,7 +28,7 @@ namespace Projects.Controllers
         {
             ProjectModel project = _repository.GetProjectById(projectNum);
             if (project == null)
-                return Error();
+                return RedirectToAction("Index", "Projects");
             return View(project);
         }
 
@@ -59,31 +60,19 @@ namespace Projects.Controllers
         {
             ProjectModel projectToUpdate = _repository.GetProjectById(projectNum);
             if (projectToUpdate == null)
-                return Error();
+                return RedirectToAction("Edit", "Projects");
             return View(projectToUpdate);
         }
 
-        [HttpPost, ActionName("EditProject")]
-        public async Task<IActionResult> EditedProject(int projectNum)
+        [HttpPost]
+        public IActionResult EditProject(ProjectModel project)
         {
-            ProjectModel projectToUpdate = _repository.GetProjectById(projectNum);
-            bool isUpdated = await TryUpdateModelAsync<ProjectModel>(
-                                     projectToUpdate,
-                                     "",
-                                     p => p.Id,
-                                     p => p.ProjectTitle,
-                                     p => p.PublicProject,
-                                     p => p.Language,
-                                     p => p.About,
-                                     p => p.Description,
-                                     p => p.CreatedDate,
-                                     p => p.ImageName);
-            if (isUpdated && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                _repository.SaveChanges();
+                _repository.EditProject(project);
                 return RedirectToAction(nameof(Index));
             }
-            return View(projectToUpdate);
+            return View(project);
         }
 
         [HttpGet]

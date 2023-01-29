@@ -30,15 +30,16 @@ namespace Project.Repositories
             _context.SaveChanges();
         }
 
+        public void EditProject(ProjectModel project)
+        {
+            _context.Projects.Update(project);
+            _context.SaveChanges();
+        }
+
         public void DeleteProject(int id)
         {
             ProjectModel project = _context.Projects.SingleOrDefault(p => p.Id == id);
             _context.Projects.Remove(project);
-            _context.SaveChanges();
-        }
-
-        public void SaveChanges()
-        {
             _context.SaveChanges();
         }
     }

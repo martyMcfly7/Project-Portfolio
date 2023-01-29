@@ -11,7 +11,7 @@ namespace Project.Repositories
         IEnumerable<ProjectModel> GetProjects();
         ProjectModel GetProjectById(int id);
         void CreateProject(ProjectModel project);
+        void EditProject(ProjectModel project);
         void DeleteProject(int id);
-        void SaveChanges();
     }
 }

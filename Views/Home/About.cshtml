@@ -5,10 +5,13 @@
 
 <div class="text-center">
     <h1 class="display-4 mb-5">About</h1>
+
     <div class="profile-img mb-5">
-        <img src="@Url.Action("GetImage", "Projects", new { fileName = "Portrait" })" class="img-thumbnail w-25 mb-4">
+        <img class="img-thumbnail w-25 mb-4" src="@Url.Action("GetImage", "Projects", 
+            new { fileName = "Portrait" })">
         <h3>Victor E. Ortiz</h3>
     </div>
+
     <h2>My Interest in Programming</h2>
     <p class="mb-5">
         I have always had a strong fascination with computers.
@@ -18,6 +21,7 @@
         Using the Raspberry Pi, I used it to emulate old video game systems.
         I got used to using the command line and modifying simple Python scripts.
     </p>
+
     <h2>Current Education</h2>
     <p class="mb-5">
         In the summer of 2018, I decided to go back to school to pursue an Associates of Computer Programming from South Puget Sound Community College.
@@ -26,6 +30,7 @@
         As I came closer to graduating, I decided I wanted to continue my education and applied to the Evergreen State College.
         The theoretical, in-depth approach proved to challenge me as less time was spent coding and more time spent on learning about the concepts and processes.
     </p>
+
     <h2>Future Goals</h2>
     <p class="mb-5">
         Upon graduating, I want to gain employment as an entry-level Software Developer.

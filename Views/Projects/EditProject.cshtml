@@ -3,11 +3,16 @@
     ViewData["Title"] = "Edit";
 }
 
-<div class="text-center">
-    <h1 class="display-4 mb-5">Edit</h1>
-    <h2 class="mb-3">Project to edit:</h2>
-    @using (Html.BeginForm("EditProject", "Projects", FormMethod.Post))
-    {
+@using (Html.BeginForm("EditProject", "Projects", FormMethod.Post))
+{
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-5">Edit</h1>
+        <h2 class="mb-3">Project to edit:</h2>
+
+        <div>
+            @Html.HiddenFor(m => m.Id)
+        </div>
+
         <div class="row mb-3">
             <div class="col text-right">
                 @Html.LabelFor(m => m.ProjectTitle)
@@ -17,6 +22,7 @@
                 @Html.ValidationMessageFor(m => m.ProjectTitle, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="row mb-3">
             <div class="col text-right">
                 @Html.LabelFor(m => m.PublicProject)
@@ -25,6 +31,7 @@
                 @Html.EditorFor(m => m.PublicProject)
             </div>
         </div>
+
         <div class="row mb-3">
             <div class="col text-right">
                 @Html.LabelFor(m => m.Language)
@@ -33,6 +40,7 @@
                 @Html.EditorFor(m => m.Language)
             </div>
         </div>
+
         <div class="row mb-3">
             <div class="col text-right">
                 @Html.LabelFor(m => m.About)
@@ -41,6 +49,7 @@
                 @Html.EditorFor(m => m.About)
             </div>
         </div>
+
         <div class="row mb-3">
             <div class="col text-right">
                 @Html.LabelFor(m => m.Description)
@@ -49,6 +58,7 @@
                 @Html.EditorFor(m => m.Description)
             </div>
         </div>
+
         <div class="row mb-3">
             <div class="col text-right">
                 @Html.LabelFor(m => m.CreatedDate)
@@ -57,6 +67,7 @@
                 @Html.EditorFor(m => m.CreatedDate)
             </div>
         </div>
+
         <div class="row mb-4">
             <div class="col text-right">
                 @Html.LabelFor(m => m.ImageName)
@@ -65,6 +76,8 @@
                 @Html.EditorFor(m => m.ImageName)
             </div>
         </div>
+
         <input class="btn-primary" type="submit" value="Submit" />
-    }
-</div>
+
+    </div>
+}
