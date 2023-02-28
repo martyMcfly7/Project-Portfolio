@@ -4,14 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Projects.Models;
 using Project.Repositories;
+using System.IO;
+using System;
+using System.Linq;
+using Microsoft.AspNetCore.Razor.Language;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.CodeAnalysis;
 
 namespace Projects.Controllers
 {
     public class ProjectsController : Controller
     {
-        private IProjectRepository _repository;
-        private IWebHostEnvironment _environment;
+        private readonly IProjectRepository _repository;
+        private readonly IWebHostEnvironment _environment;
 
         public ProjectsController(IProjectRepository repository, IWebHostEnvironment environment)
         {
@@ -27,8 +33,10 @@ namespace Projects.Controllers
         public IActionResult Project(int projectNum)
         {
             ProjectModel project = _repository.GetProjectById(projectNum);
+
             if (project == null)
-                return RedirectToAction("Index", "Projects");
+                return RedirectToAction("Index");
+
             return View(project);
         }
 
@@ -43,9 +51,16 @@ namespace Projects.Controllers
         {
             if (ModelState.IsValid)
             {
+                IFormFile imageFile = Request.Form.Files.First();
+
+                if (imageFile != null)
+                    project = UploadImage(project, imageFile);
+
                 _repository.CreateProject(project);
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Index");
             }
+
             return View(project);
         }
 
@@ -59,8 +74,10 @@ namespace Projects.Controllers
         public IActionResult EditProject(int projectNum)
         {
             ProjectModel projectToUpdate = _repository.GetProjectById(projectNum);
+
             if (projectToUpdate == null)
-                return RedirectToAction("Edit", "Projects");
+                return RedirectToAction("Edit");
+
             return View(projectToUpdate);
         }
 
@@ -69,8 +86,14 @@ namespace Projects.Controllers
         {
             if (ModelState.IsValid)
             {
+                IFormFile imageFile = Request.Form.Files.First();
+
+                if (imageFile != null)
+                    project = UploadImage(project, imageFile);
+
                 _repository.EditProject(project);
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Index");
             }
             return View(project);
         }
@@ -85,14 +108,56 @@ namespace Projects.Controllers
         public IActionResult RemoveProject(int projectNum)
         {
             _repository.DeleteProject(projectNum);
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Index");
         }
 
-        public IActionResult GetImage(string fileName)
+        public ProjectModel UploadImage(ProjectModel project, IFormFile imageFile)
         {
-            if (!System.IO.File.Exists($@"wwwroot\images\{fileName}.jpg"))
-                return File($@"images\Placeholder.jpg", "image/jpeg");
-            return File($@"images\{fileName}.jpg", "image/jpeg");
+            var imagesFolder = Path.Combine(_environment.WebRootPath, "images");
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+
+            using (FileStream stream = new FileStream(Path.Combine(imagesFolder, fileName), FileMode.Create))
+            {
+                imageFile.CopyTo(stream);
+                project.ImageFileName = fileName;
+            }
+
+            return project;
+        }
+
+        public IActionResult GetImage(string imageFileName)
+        {
+            string fileName = "";
+            string mimeType = "";
+
+            if (imageFileName != null)
+            {
+                if (imageFileName.EndsWith(".jpg"))
+                {
+                    fileName = imageFileName;
+                    mimeType = "image/jpeg";
+                }
+
+                if (imageFileName.EndsWith(".png"))
+                {
+                    fileName = imageFileName;
+                    mimeType = "image/png";
+                }
+
+                if (imageFileName.EndsWith(".gif"))
+                {
+                    fileName = imageFileName;
+                    mimeType = "image/gif";
+                }
+            }
+            else
+            {
+                fileName = "Placeholder.jpg";
+                mimeType = "image/jpeg";
+            }
+
+            return File($@"images\" + fileName, mimeType);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

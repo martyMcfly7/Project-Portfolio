@@ -10,7 +10,7 @@
     @foreach (var project in Model)
     {
         <div class="mb-2">
-            @Html.ActionLink(project.ProjectTitle, "EditProject", new { projectNum = project.Id })
+            @Html.ActionLink(project.Title, "EditProject", new { projectNum = project.Id })
         </div>
     }
 </div>

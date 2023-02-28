@@ -30,7 +30,7 @@
     <ul class="mb-5">
         @foreach (var project in Model)
         {
-            <li>@Html.ActionLink(project.ProjectTitle, "Project", "Projects", 
+            <li>@Html.ActionLink(project.Title, "Project", "Projects", 
                 new { projectNum = project.Id })</li>
         }
     </ul>

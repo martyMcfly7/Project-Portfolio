@@ -12,7 +12,7 @@ namespace Projects
 {
     public class Startup
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
@@ -25,7 +25,7 @@ namespace Projects
             services.AddTransient<IProjectRepository, ProjectRepository>();
 
             services.AddDbContext<ProjectContext>(options =>
-                options.UseSqlite("Data Source=Data/project.db"));
+                options.UseSqlite("Data Source=Data/Project.db"));
 
             services.AddControllersWithViews();
         }
@@ -58,7 +58,7 @@ namespace Projects
             }
 
             // delete/create database
-            /*projectContext.Database.EnsureDeleted();*/  // only for testing purposes
+            projectContext.Database.EnsureDeleted();  // only for testing purposes
             projectContext.Database.EnsureCreated();
 
             app.UseStaticFiles();

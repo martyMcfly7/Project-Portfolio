@@ -3,7 +3,7 @@
     ViewData["Title"] = "Add";
 }
 
-@using (Html.BeginForm("Add", "Projects", FormMethod.Post))
+@using (Html.BeginForm("Add", "Projects", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     <div class="text-center mb-5">
         <h1 class="display-4 mb-5">Add</h1>
@@ -11,20 +11,20 @@
 
         <div class="row mb-3">
             <div class="col text-right">
-                @Html.LabelFor(m => m.ProjectTitle)
+                @Html.LabelFor(m => m.Title)
             </div>
             <div class="col text-left">
-                @Html.EditorFor(m => m.ProjectTitle)
-                @Html.ValidationMessageFor(m => m.ProjectTitle, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m.Title)
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col text-right">
-                @Html.LabelFor(m => m.PublicProject)
+                @Html.LabelFor(m => m.IsPublic)
             </div>
             <div class="col text-left">
-                @Html.EditorFor(m => m.PublicProject)
+                @Html.EditorFor(m => m.IsPublic)
             </div>
         </div>
 
@@ -66,10 +66,11 @@
 
         <div class="row mb-4">
             <div class="col text-right">
-                @Html.LabelFor(m => m.ImageName)
+                @Html.LabelFor(m => m.ImageFileName)
             </div>
             <div class="col text-left">
-                @Html.EditorFor(m => m.ImageName)
+                <input type="file" name="file" class="form-control-file" />
+                @Html.ValidationMessageFor(m => m.ImageFileName, "", new { @class = "text-danger" })
             </div>
         </div>
 
